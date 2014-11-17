@@ -31,7 +31,7 @@ func (cmd *Files) Metadata() command_metadata.CommandMetadata {
 		Name:        "files",
 		ShortName:   "f",
 		Description: T("Print out a list of files in a directory or the contents of a specific file"),
-		Usage:       T("CF_NAME files APP [-i INSTANCE] [PATH]"),
+		Usage:       T("CF_NAME files APP PATH [-i INSTANCE]"),
 		Flags: []cli.Flag{
 			flag_helpers.NewIntFlag("i", T("Instance")),
 		},
@@ -39,7 +39,7 @@ func (cmd *Files) Metadata() command_metadata.CommandMetadata {
 }
 
 func (cmd *Files) GetRequirements(requirementsFactory requirements.Factory, c *cli.Context) (reqs []requirements.Requirement, err error) {
-	if len(c.Args()) < 1 {
+	if len(c.Args()) != 2 {
 		cmd.ui.FailWithUsage(c)
 	}
 
@@ -81,10 +81,7 @@ func (cmd *Files) Run(c *cli.Context) {
 			"SpaceName": terminal.EntityNameColor(cmd.config.SpaceFields().Name),
 			"Username":  terminal.EntityNameColor(cmd.config.Username())}))
 
-	path := "/"
-	if len(c.Args()) > 1 {
-		path = c.Args()[1]
-	}
+	path := c.Args()[1]
 
 	list, apiErr := cmd.appFilesRepo.ListFiles(app.Guid, instance, path)
 	if apiErr != nil {

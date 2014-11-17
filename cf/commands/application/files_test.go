@@ -46,7 +46,7 @@ var _ = Describe("files command", func() {
 			Expect(testcmd.CommandDidPassRequirements).To(BeFalse())
 		})
 
-		It("fails with usage when not provided an app name", func() {
+		It("fails with usage when not provided exact num of args", func() {
 			requirementsFactory.LoginSuccess = true
 			requirementsFactory.TargetedSpaceSuccess = true
 			runCommand()
@@ -56,7 +56,7 @@ var _ = Describe("files command", func() {
 		})
 	})
 
-	Context("when logged in, a space is targeted and a valid app name is provided", func() {
+	Context("when logged in, a space is targeted and a valid app name and path are provided", func() {
 		BeforeEach(func() {
 			app := models.Application{}
 			app.Name = "my-found-app"
@@ -92,7 +92,7 @@ var _ = Describe("files command", func() {
 
 		Context("checking for bad flags", func() {
 			It("fails when non-positive value is given for instance", func() {
-				runCommand("-i", "-1", "my-app")
+				runCommand("-i", "-1", "my-app", "/foo")
 
 				Expect(ui.Outputs).To(ContainSubstrings(
 					[]string{"FAILED"},
@@ -102,7 +102,7 @@ var _ = Describe("files command", func() {
 			})
 
 			It("fails when instance is larger than instance count", func() {
-				runCommand("-i", "5", "my-app")
+				runCommand("-i", "5", "my-app", "/foo")
 
 				Expect(ui.Outputs).To(ContainSubstrings(
 					[]string{"FAILED"},

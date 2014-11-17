@@ -700,8 +700,8 @@
       "modified": false
    },
    {
-      "id": "CF_NAME files APP [-i INSTANCE] [PATH]",
-      "translation": "CF_NAME files APP [-i INSTÂNCIA] [CAMINHO]",
+      "id": "CF_NAME files APP PATH [-i INSTANCE]",
+      "translation": "CF_NAME files APP CAMINHO [-i INSTÂNCIA]",
       "modified": true
    },
    {
