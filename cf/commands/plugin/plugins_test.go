@@ -35,7 +35,11 @@ var _ = Describe("Plugins", func() {
 		cmd := NewPlugins(ui, config)
 		return testcmd.RunCommand(cmd, args, requirementsFactory)
 	}
-
+	It("should fail with usage when provided any arguments", func() {
+		requirementsFactory.LoginSuccess = true
+		Expect(runCommand("blahblah")).To(BeFalse())
+		Expect(ui.FailedWithUsage).To(BeTrue())
+	})
 	It("fails if the plugin cannot be started", func() {
 		config.PluginsReturns(map[string]plugin_config.PluginMetadata{
 			"test_245":     plugin_config.PluginMetadata{},
