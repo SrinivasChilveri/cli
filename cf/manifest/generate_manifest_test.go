@@ -111,7 +111,7 @@ var _ = Describe("generate_manifest", func() {
 		))
 	})
 
-	Context("When there are multiple hosts or/and domains", func() {
+	Context("When there are multiple hosts and domains", func() {
 
 		It("generates a manifest containing two hosts two domains", func() {
 			m.Memory("app1", 128)
@@ -145,6 +145,9 @@ var _ = Describe("generate_manifest", func() {
 				[]string{"  - test2.com"},
 			))
 		})
+	})
+
+	Context("When there are multiple hosts and single domain", func() {
 
 		It("generates a manifest containing two hosts one domain", func() {
 			m.Memory("app1", 128)
@@ -174,6 +177,9 @@ var _ = Describe("generate_manifest", func() {
 				[]string{"  domain: test.com"},
 			))
 		})
+	})
+
+	Context("When there is single host and multiple domains", func() {
 
 		It("generates a manifest containing one host two domains", func() {
 			m.Memory("app1", 128)
